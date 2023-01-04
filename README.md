@@ -11,15 +11,21 @@ This Discord bot monitors all channels of a server and reposts any Instagram lin
 
 1. Install the required libraries using pip:
 
-``pip install -r requirements.txt``
+````
+pip install -r requirements.txt
+````
 
 2. Create a file named .env and add your Discord bot's token, created by following [this guide](https://discordpy.readthedocs.io/en/latest/discord.html):
 
-``TOKEN=YOUR_TOKEN_HERE``
+````
+TOKEN=YOUR_TOKEN_HERE
+````
 
 3. Run the bot:
 
-``python bot.py``
+````
+python bot.py
+````
 
 4. Invite the bot to your server using the link provided by Discord's bot console.
 
