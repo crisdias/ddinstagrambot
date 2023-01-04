@@ -33,4 +33,6 @@ python bot.py
 
 This bot was created with the help of [ChatGPT](https://chat.openai.com/).
 
+## License
 
+This project is licensed under the **MIT License**.
