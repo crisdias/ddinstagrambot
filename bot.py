@@ -46,7 +46,6 @@ frases = [
     'Aqui está o link:',
     'Seu Pix foi confirmado:',
     'Isso a igreja condena:',
-    'Siga este canal para mais links encurtados:',
     'Puta crítica social foda esse link:',
     'É tudo computador essa porra, Rogerinho:',
     "I'm Batman:",
@@ -67,7 +66,7 @@ frases = [
     'Eu sou apenas um bot, mas você é que precisa melhorar suas escolhas:',
     'Eu não vou me desculpar por esse link, você é que deveria ter pensado antes de pedir:',
     'Eu não sou responsável pelo conteúdo desse link, mas você é que pediu:',
-    'O gerente ficou louco:',
+    'O gerente ficou louco:'
 
 
 
@@ -86,6 +85,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+    new_url = None
     if igregex.match(message.content):
         url_match = re.search(r"https?://(www\.)?instagram\.com[/\w-]*", message.content)
         if url_match:
@@ -105,9 +105,10 @@ async def on_message(message):
             new_url = url.replace("mobile.twitter.com", "fxtwitter.com")
 
 
-    frase = frases[random.randint(0, len(frases)-1)]
+    if new_url:
+        frase = frases[random.randint(0, len(frases)-1)]
+        await message.channel.send(frase + "\n" + new_url.split("?")[0])
 
-    await message.channel.send(frase + "\n" + new_url.split("?")[0])
     return 1
 
 
