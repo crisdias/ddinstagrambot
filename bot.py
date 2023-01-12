@@ -35,28 +35,24 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+    # exit if message is from bot
+    if message.author == client.user:
+        return 1
+        
     new_url = None
-    if igregex.match(message.content):
-        url_match = re.search(r"https?://(www\.)?instagram\.com[/\w-]*", message.content)
-        if url_match:
-            url = url_match.group(0)
-            new_url = url.replace("instagram.com", "ddinstagram.com")
+    igmatch = re.search(igregex, message.content)
+    twmatch = re.search(twregex, message.content)
 
-    if twregex.match(message.content):
-        if twitter.twt_is_video(message.content):
-            url_match = re.search(r"https?://(www\.)?twitter\.com[/\w-]*", message.content)
-            if url_match:
-                url = url_match.group(0)
-                if twitter.twt_is_video(url):
-                    new_url = url.replace("twitter.com", "fxtwitter.com")
+    if igmatch:
+        url = igmatch.group(0)
+        new_url = url.replace("instagram.com", "ddinstagram.com")
 
-    if twregex.match(message.content):
-        if twitter.twt_is_video(message.content):
-            url_match = re.search(r"https?://mobile.twitter\.com[/\w-]*", message.content)
-            if url_match:
-                url = url_match.group(0)
-                if twitter.twt_is_video(url):
-                    new_url = url.replace("mobile.twitter.com", "fxtwitter.com")
+    if twmatch:
+        url = twmatch.group(0)
+        if twitter.twt_is_video(url):
+            new_url = url.replace("https://mobile.twitter.com/", "https://twitter.com/")
+            new_url = url.replace("https://twitter.com", "https://fxtwitter.com")
+
 
 
     if new_url:
