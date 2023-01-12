@@ -1,4 +1,5 @@
 import re
+import twitter
 
 valid_twitter_urls = [
     "https://twitter.com/elonmusk/status/1380000000000000000",
@@ -49,3 +50,37 @@ for url in invalid_twitter_urls:
         print(f"Matched invalid: {url}")
 
 
+
+def run_video_tests(tests):
+    for test in tests:
+        print(f'\n\nChecking: {test}')
+        print(twitter.twt_is_video(test))
+
+
+
+video_tests = [
+  'https://twitter.com/TVQuase/status/1613325938380472323',
+  'https://twitter.com/felipeneto/status/1613411337882816512',
+  'https://twitter.com/biosbug/status/1613556603915239424'
+]
+
+
+
+
+
+
+def test_twt_link_extract():
+  message = "Please check out this tweet: https://mobile.twitter.com/username/status/1234567890, show of ball."
+
+  url_match = twregex.search(message)
+  if url_match:
+      full_url = url_match.group()
+      print(f'--{full_url}--')
+  else:
+      print("No URL found in message.")
+
+
+
+
+# run_video_tests(video_tests)
+test_twt_link_extract()

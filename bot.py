@@ -3,6 +3,7 @@ import discord
 from dotenv import load_dotenv
 import os
 import re
+import twitter
 
 
 load_dotenv()
@@ -41,17 +42,21 @@ async def on_message(message):
             url = url_match.group(0)
             new_url = url.replace("instagram.com", "ddinstagram.com")
 
-    # if twregex.match(message.content):
-    #     url_match = re.search(r"https?://(www\.)?twitter\.com[/\w-]*", message.content)
-    #     if url_match:
-    #         url = url_match.group(0)
-    #         new_url = url.replace("twitter.com", "fxtwitter.com")
+    if twregex.match(message.content):
+        if twitter.twt_is_video(message.content):
+            url_match = re.search(r"https?://(www\.)?twitter\.com[/\w-]*", message.content)
+            if url_match:
+                url = url_match.group(0)
+                if twitter.twt_is_video(url):
+                    new_url = url.replace("twitter.com", "fxtwitter.com")
 
-    # if twregex.match(message.content):
-    #     url_match = re.search(r"https?://mobile.twitter\.com[/\w-]*", message.content)
-    #     if url_match:
-    #         url = url_match.group(0)
-    #         new_url = url.replace("mobile.twitter.com", "fxtwitter.com")
+    if twregex.match(message.content):
+        if twitter.twt_is_video(message.content):
+            url_match = re.search(r"https?://mobile.twitter\.com[/\w-]*", message.content)
+            if url_match:
+                url = url_match.group(0)
+                if twitter.twt_is_video(url):
+                    new_url = url.replace("mobile.twitter.com", "fxtwitter.com")
 
 
     if new_url:
@@ -59,6 +64,7 @@ async def on_message(message):
         await message.channel.send(frase + "\n" + new_url.split("?")[0])
 
     return 1
+
 
 
 

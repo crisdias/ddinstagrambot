@@ -2,3 +2,4 @@
 docker-compose.yml
 bin
 lib
+__pycache__
