@@ -8,6 +8,7 @@ import twitter
 
 load_dotenv()
 TOKEN = os.getenv("TOKEN")
+CLIENT_ID = os.getenv("CLIENT_ID")
 print(TOKEN)
 
 
@@ -32,6 +33,7 @@ if len(frases) == 0:
 @client.event
 async def on_ready():
     print(f'\n\n\n\n\n\n\nWe have logged in as {client.user}')
+    print(f'https://discordapp.com/api/oauth2/authorize?client_id={CLIENT_ID}&permissions=10304&scope=bot')
 
 @client.event
 async def on_message(message):
@@ -54,10 +56,10 @@ async def on_message(message):
             new_url = url.replace("https://twitter.com", "https://fxtwitter.com")
 
 
-
     if new_url:
         frase = frases[random.randint(0, len(frases)-1)]
         await message.channel.send(frase + "\n" + new_url.split("?")[0])
+        await message.edit(suppress=True)
 
     return 1
 
