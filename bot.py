@@ -20,7 +20,7 @@ intents.reactions = True
 client = discord.Client(intents=intents)
 
 
-igregex = re.compile(r'https?://(www\.)?instagram\.com/(reel|p|stories)/\w+')
+igregex = re.compile(r'https?://(www\.)?instagram\.com/(reel|p|stories)/[\w-]+')
 twregex = re.compile(r'https?://(www\.)?(mobile\.)?twitter\.com/\w+/status/\d+')
 
 # read config/frases.txt into array
@@ -51,9 +51,9 @@ async def on_message(message):
 
     if twmatch:
         url = twmatch.group(0)
-        if twitter.twt_is_video(url):
-            new_url = url.replace("https://mobile.twitter.com/", "https://twitter.com/")
-            new_url = url.replace("https://twitter.com", "https://fxtwitter.com")
+        # if twitter.twt_is_video(url):
+        new_url = url.replace("https://mobile.twitter.com/", "https://twitter.com/")
+        new_url = url.replace("https://twitter.com", "https://fxtwitter.com")
 
 
     if new_url:
