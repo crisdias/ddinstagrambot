@@ -1,6 +1,15 @@
 import re
 import twitter
 
+valid_tiktok_urls = [
+    "https://www.tiktok.com/@battlebots/video/7188169202467982635?_r=1&_t=8Zi6TBWysoI",
+    "https://m.tiktok.com/@username/video/1234567890",
+    "https://vm.tiktok.com/@username/video/1234567890",
+    "https://tiktok.com/@username/video/1234567890",
+    "https://vm.tiktok.com/ZMYjtF6tU/"
+]
+
+
 valid_twitter_urls = [
     "https://twitter.com/elonmusk/status/1380000000000000000",
     "https://twitter.com/elonmusk/status/1380000000000000000?s=20",
@@ -80,7 +89,17 @@ def test_twt_link_extract():
       print("No URL found in message.")
 
 
+def test_tiktok():
+    ttregex = re.compile(r'https?://(www.|m.|vm.)?tiktok.com/+')
 
+    for url in valid_tiktok_urls:
+        ttmatch = re.search(ttregex, url)
+        if ttmatch:
+            new_url = url.replace("tiktok.com/", "vxtiktok.com/")
+            print(f"Matched valid: {url} --> {new_url}")
+        else:
+            print(f"Failed to match valid: {url}")
+    
 
 # run_video_tests(video_tests)
-test_twt_link_extract()
+test_tiktok()

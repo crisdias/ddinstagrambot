@@ -3,13 +3,13 @@ import discord
 from dotenv import load_dotenv
 import os
 import re
-import twitter
 
+# import twitter
+from utils import *
 
 load_dotenv()
 TOKEN = os.getenv("TOKEN")
 CLIENT_ID = os.getenv("CLIENT_ID")
-print(TOKEN)
 
 
 
@@ -19,9 +19,11 @@ intents.messages = True
 intents.reactions = True
 client = discord.Client(intents=intents)
 
+# https://vm.tiktok.com/ZMYjtF6tU/
 
 igregex = re.compile(r'https?://(www\.)?instagram\.com/(reel|p|stories)/[\w-]+')
 twregex = re.compile(r'https?://(www\.)?(mobile\.)?twitter\.com/\w+/status/\d+')
+ttregex = re.compile(r'https?://(www.|m.|vm.)?tiktok.com/(@\w+/video/\d+|[\w-]+)(\?.*)?')
 
 # read config/frases.txt into array
 with open('config/frases.txt', 'r') as f:
@@ -44,16 +46,26 @@ async def on_message(message):
     new_url = None
     igmatch = re.search(igregex, message.content)
     twmatch = re.search(twregex, message.content)
+    ttmatch = re.search(ttregex, message.content)
 
     if igmatch:
         url = igmatch.group(0)
+        pp(url, "url")
         new_url = url.replace("instagram.com", "ddinstagram.com")
 
     if twmatch:
         url = twmatch.group(0)
         # if twitter.twt_is_video(url):
         new_url = url.replace("https://mobile.twitter.com/", "https://twitter.com/")
-        new_url = url.replace("https://twitter.com", "https://fxtwitter.com")
+        new_url = new_url.replace("https://twitter.com", "https://fxtwitter.com")
+
+    if ttmatch:
+        url = ttmatch.group(0)
+        pp(url, "url")
+        new_url = url.replace("tiktok.com/", "vxtiktok.com/")
+        # strip query string
+        new_url = new_url.split("?")[0]
+        pp(new_url, "new_url")
 
 
     if new_url:
