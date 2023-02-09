@@ -50,7 +50,6 @@ async def on_message(message):
 
     if igmatch:
         url = igmatch.group(0)
-        pp(url, "url")
         new_url = url.replace("instagram.com", "ddinstagram.com")
 
     if twmatch:
@@ -61,11 +60,9 @@ async def on_message(message):
 
     if ttmatch:
         url = ttmatch.group(0)
-        pp(url, "url")
         new_url = url.replace("tiktok.com/", "vxtiktok.com/")
         # strip query string
         new_url = new_url.split("?")[0]
-        pp(new_url, "new_url")
 
 
     if new_url:
