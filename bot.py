@@ -20,10 +20,11 @@ intents.reactions = True
 client = discord.Client(intents=intents)
 
 # https://vm.tiktok.com/ZMYjtF6tU/
+# https://www.tiktok.com/t/ZTRtdJSUR/
 
 igregex = re.compile(r'https?://(www\.)?instagram\.com/(reel|p|stories)/[\w-]+')
 twregex = re.compile(r'https?://(www\.)?(mobile\.)?twitter\.com/\w+/status/\d+')
-ttregex = re.compile(r'https?://(www.|m.|vm.)?tiktok.com/(@\w+/video/\d+|[\w-]+)(\?.*)?')
+ttregex = re.compile(r'https?://(www\.|m\.|vm\.)?tiktok\.com/(@[\w-]+/video/\d+|[\w-]+)(?:.*)(\?.*)?')
 
 # read config/frases.txt into array
 with open('config/frases.txt', 'r') as f:

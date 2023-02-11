@@ -1,12 +1,15 @@
 import re
 import twitter
+from utils import *
 
 valid_tiktok_urls = [
     "https://www.tiktok.com/@battlebots/video/7188169202467982635?_r=1&_t=8Zi6TBWysoI",
     "https://m.tiktok.com/@username/video/1234567890",
     "https://vm.tiktok.com/@username/video/1234567890",
     "https://tiktok.com/@username/video/1234567890",
-    "https://vm.tiktok.com/ZMYjtF6tU/"
+    "https://vm.tiktok.com/ZMYjtF6tU/",
+    "https://www.tiktok.com/t/ZTRtkbUqC/",
+    "https://www.tiktok.com/t/ZTRtkbUqC"
 ]
 
 
@@ -90,12 +93,16 @@ def test_twt_link_extract():
 
 
 def test_tiktok():
-    ttregex = re.compile(r'https?://(www.|m.|vm.)?tiktok.com/+')
+    ttregex = re.compile(r'https?://(www\.|m\.|vm\.)?tiktok\.com/(@[\w-]+/video/\d+|[\w-]+)(?:.*)(\?.*)?')
+
 
     for url in valid_tiktok_urls:
         ttmatch = re.search(ttregex, url)
         if ttmatch:
-            new_url = url.replace("tiktok.com/", "vxtiktok.com/")
+            xurl = ttmatch.group(0)
+            # pp(xurl, "xurl")
+            new_url = xurl.replace("tiktok.com/", "vxtiktok.com/")
+            new_url = new_url.split("?")[0]
             print(f"Matched valid: {url} --> {new_url}")
         else:
             print(f"Failed to match valid: {url}")
