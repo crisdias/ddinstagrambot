@@ -24,6 +24,7 @@ client = discord.Client(intents=intents)
 
 igregex = re.compile(r'https?://(www\.)?instagram\.com/(reel|p|stories)/[\w-]+')
 twregex = re.compile(r'https?://(www\.)?(mobile\.)?twitter\.com/\w+/status/\d+')
+ntregex = re.compile(r'https?://(www\.)?nitter\.net/\w+/status/\d+')
 ttregex = re.compile(r'https?://(www\.|m\.|vm\.)?tiktok\.com/(@[\w-]+/video/\d+|[\w-]+)(?:.*)(\?.*)?')
 
 # read config/frases.txt into array
@@ -47,6 +48,7 @@ async def on_message(message):
     new_url = None
     igmatch = re.search(igregex, message.content)
     twmatch = re.search(twregex, message.content)
+    ntmatch = re.search(ntregex, message.content)
     ttmatch = re.search(ttregex, message.content)
 
     if igmatch:
@@ -58,6 +60,10 @@ async def on_message(message):
         # if twitter.twt_is_video(url):
         new_url = url.replace("https://mobile.twitter.com/", "https://twitter.com/")
         new_url = new_url.replace("https://twitter.com", "https://fxtwitter.com")
+
+    if ntmatch:
+        url = ntmatch.group(0)
+        new_url = new_url.replace("https://nitter.net", "https://fxtwitter.com")
 
     if ttmatch:
         url = ttmatch.group(0)

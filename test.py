@@ -62,6 +62,56 @@ for url in invalid_twitter_urls:
         print(f"Matched invalid: {url}")
 
 
+valid_nitter_urls = [
+    "https://nitter.net/elonmusk/status/1380000000000000000",
+    "https://nitter.net/elonmusk/status/1380000000000000000?s=20",
+    "https://www.nitter.net/elonmusk/status/1380000000000000000",
+    "https://www.nitter.net/elonmusk/status/1380000000000000000?s=20",
+    "https://nitter.net/elonmusk/status/1380000000000000000/photo/1",
+    "https://nitter.net/elonmusk/status/1380000000000000000/photo/1?s=20",
+    "https://www.nitter.net/elonmusk/status/1380000000000000000/photo/1",
+    "https://www.nitter.net/elonmusk/status/1380000000000000000/photo/1?s=20",
+    "https://nitter.net/elonmusk/status/1380000000000000000/video/1",
+    "https://nitter.net/elonmusk/status/1380000000000000000/video/1?s=20",
+    "https://www.nitter.net/elonmusk/status/1380000000000000000/video/1",
+    "https://www.nitter.net/elonmusk/status/1380000000000000000/video/1?s=20",
+    "https://nitter.net/hankgreen/status/1613317341240258560",
+    "https://nitter.net/jonesmanoel_PE/status/1649192103153418240"
+]
+
+invalid_nitter_urls = [
+    "https://nitter.net/elonmusk/",
+    "https://nitter.net/elonmusk",
+    "https://mobile.nitter.net/elonmusk/",
+    "https://mobile.nitter.net/elonmusk/",
+    "https://www.nitter.net/elonmusk/",
+    "https://www.nitter.net/elonmusk",
+
+    "https://nitter.net/",
+    "https://nitter.net",
+    "https://mobile.nitter.net/",
+    "https://mobile.nitter.net",
+    "https://www.nitter.net/",
+    "https://www.nitter.net",
+    "https://mobile.nitter.net/elonmusk/status/1380000000000000000",
+    "https://mobile.nitter.net/elonmusk/status/1380000000000000000?s=20",
+    "https://mobile.nitter.net/elonmusk/status/1380000000000000000/photo/1",
+    "https://mobile.nitter.net/elonmusk/status/1380000000000000000/photo/1?s=20",
+    "https://mobile.nitter.net/elonmusk/status/1380000000000000000/video/1",
+    "https://mobile.nitter.net/elonmusk/status/1380000000000000000/video/1?s=20"
+]
+
+ntregex = re.compile(r'https?://(www\.)?nitter\.net/\w+/status/\d+')
+
+for url in valid_nitter_urls:
+    if not ntregex.match(url):
+        print(f"Failed to match valid: {url}")
+
+for url in invalid_nitter_urls:
+    if ntregex.match(url):
+        print(f"Matched invalid: {url}")
+
+
 
 def run_video_tests(tests):
     for test in tests:
