@@ -63,7 +63,7 @@ async def on_message(message):
 
     if ntmatch:
         url = ntmatch.group(0)
-        new_url = new_url.replace("https://nitter.net", "https://fxtwitter.com")
+        new_url = url.replace("https://nitter.net", "https://fxtwitter.com")
 
     if ttmatch:
         url = ttmatch.group(0)
