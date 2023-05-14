@@ -4,8 +4,39 @@ from dotenv import load_dotenv
 import os
 import re
 
+from http.server import BaseHTTPRequestHandler, HTTPServer
+import threading
+import time
+
 # import twitter
 from utils import *
+
+
+### Web server
+
+class MyHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'text/html')
+        self.end_headers()
+        current_time = time.strftime('%H:%M:%S', time.localtime())
+        response = f'Bot is running - {current_time}'
+        self.wfile.write(response.encode('utf-8'))
+
+def run_server():
+    server_address = ('', 8080)
+    httpd = HTTPServer(server_address, MyHandler)
+    httpd.serve_forever()
+
+# Inicie o servidor em uma nova thread
+import threading
+server_thread = threading.Thread(target=run_server)
+server_thread.start()
+
+
+
+
+### Rest of bot
 
 load_dotenv()
 TOKEN = os.getenv("TOKEN")

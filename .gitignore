@@ -3,3 +3,4 @@ docker-compose.yml
 bin
 lib
 __pycache__
+fly.toml
