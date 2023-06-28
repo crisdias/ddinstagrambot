@@ -4,35 +4,8 @@ from dotenv import load_dotenv
 import os
 import re
 
-from http.server import BaseHTTPRequestHandler, HTTPServer
-import threading
-import time
-
 # import twitter
 from utils import *
-
-
-### Web server
-
-class MyHandler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        self.send_response(200)
-        self.send_header('Content-type', 'text/html')
-        self.end_headers()
-        current_time = time.strftime('%H:%M:%S', time.localtime())
-        response = f'Bot is running - {current_time}'
-        self.wfile.write(response.encode('utf-8'))
-
-def run_server():
-    server_address = ('', 8080)
-    httpd = HTTPServer(server_address, MyHandler)
-    httpd.serve_forever()
-
-# Inicie o servidor em uma nova thread
-import threading
-server_thread = threading.Thread(target=run_server)
-server_thread.start()
-
 
 
 
@@ -75,7 +48,7 @@ async def on_message(message):
     # exit if message is from bot
     if message.author == client.user:
         return 1
-        
+
     new_url = None
     igmatch = re.search(igregex, message.content)
     twmatch = re.search(twregex, message.content)
@@ -107,6 +80,14 @@ async def on_message(message):
         frase = frases[random.randint(0, len(frases)-1)]
         await message.channel.send(frase + "\n" + new_url.split("?")[0])
         await message.edit(suppress=True)
+
+        if twmatch:
+            url = twmatch.group(0)
+            # if twitter.twt_is_video(url):
+            new_url = url.replace("https://mobile.twitter.com/", "https://nitter.net/")
+            new_url = new_url.replace("https://twitter.com", "https://nitter.net")
+
+            await message.channel.send("E um link do Nitter pra você não dar pageview pro Elno:" + "\n" + new_url.split("?")[0])
 
     return 1
 
