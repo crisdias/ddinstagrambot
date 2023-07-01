@@ -81,13 +81,13 @@ async def on_message(message):
         await message.channel.send(frase + "\n" + new_url.split("?")[0])
         await message.edit(suppress=True)
 
-        if twmatch:
-            url = twmatch.group(0)
-            # if twitter.twt_is_video(url):
-            new_url = url.replace("https://mobile.twitter.com/", "https://nitter.net/")
-            new_url = new_url.replace("https://twitter.com", "https://nitter.net")
+        # if twmatch:
+        #     url = twmatch.group(0)
+        #     # if twitter.twt_is_video(url):
+        #     new_url = url.replace("https://mobile.twitter.com/", "https://nitter.net/")
+        #     new_url = new_url.replace("https://twitter.com", "https://nitter.net")
 
-            await message.channel.send("E um link do Nitter pra você não dar pageview pro Elno:" + "\n" + new_url.split("?")[0])
+        #     await message.channel.send("E um link do Nitter pra você não dar pageview pro Elno:" + "\n" + new_url.split("?")[0])
 
     return 1
 
