@@ -55,6 +55,8 @@ async def on_message(message):
     ntmatch = re.search(ntregex, message.content)
     ttmatch = re.search(ttregex, message.content)
 
+    frase = frases[random.randint(0, len(frases)-1)]
+
     if igmatch:
         url = igmatch.group(0)
         new_url = url.replace("instagram.com", "ddinstagram.com")
@@ -64,6 +66,7 @@ async def on_message(message):
         # if twitter.twt_is_video(url):
         new_url = url.replace("https://mobile.twitter.com/", "https://twitter.com/")
         new_url = new_url.replace("https://twitter.com", "https://fxtwitter.com")
+        frase = "Provavelmente este preview não vai funcionar por motivos de Elon Musk. Saia do Twitter."
 
     if ntmatch:
         url = ntmatch.group(0)
@@ -77,7 +80,6 @@ async def on_message(message):
 
 
     if new_url:
-        frase = frases[random.randint(0, len(frases)-1)]
         await message.channel.send(frase + "\n" + new_url.split("?")[0])
         await message.edit(suppress=True)
 
