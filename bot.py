@@ -28,6 +28,7 @@ client = discord.Client(intents=intents)
 
 igregex = re.compile(r'https?://(www\.)?instagram\.com/(reel|p|stories)/[\w-]+')
 twregex = re.compile(r'https?://(www\.)?(mobile\.)?twitter\.com/\w+/status/\d+')
+xregex  = re.compile(r'https?://(www\.)?(mobile\.)?x\.com/\w+/status/\d+')
 ntregex = re.compile(r'https?://(www\.)?nitter\.net/\w+/status/\d+')
 ttregex = re.compile(r'https?://(www\.|m\.|vm\.)?tiktok\.com/(@[\w-]+/video/\d+|[\w-]+)(?:.*)(\?.*)?')
 
@@ -52,6 +53,7 @@ async def on_message(message):
     new_url = None
     igmatch = re.search(igregex, message.content)
     twmatch = re.search(twregex, message.content)
+    xmatch  = re.search(xregex,  message.content)
     ntmatch = re.search(ntregex, message.content)
     ttmatch = re.search(ttregex, message.content)
 
@@ -66,6 +68,13 @@ async def on_message(message):
         # if twitter.twt_is_video(url):
         new_url = url.replace("https://mobile.twitter.com/", "https://twitter.com/")
         new_url = new_url.replace("https://twitter.com", "https://fxtwitter.com")
+        # frase = "Provavelmente este preview não vai funcionar por motivos de Elon Musk. Saia do Twitter."
+
+    if xmatch:
+        url = xmatch.group(0)
+        # if twitter.twt_is_video(url):
+        new_url = url.replace("https://mobile.x.com/", "https://x.com/")
+        new_url = new_url.replace("https://x.com", "https://fxtwitter.com")
         # frase = "Provavelmente este preview não vai funcionar por motivos de Elon Musk. Saia do Twitter."
 
     if ntmatch:
@@ -83,12 +92,20 @@ async def on_message(message):
         await message.channel.send(frase + "\n" + new_url.split("?")[0])
         await message.edit(suppress=True)
 
-        if twmatch:
-            url = twmatch.group(0)
-            # if twitter.twt_is_video(url):
+        new_url = None
+
+        if twmatch or xmatch:
+            if twmatch:
+                url = twmatch.group(0)
+            if xmatch:
+                url = xmatch.group(0)
+
             new_url = url.replace("https://mobile.twitter.com/", "https://nitter.net/")
             new_url = new_url.replace("https://twitter.com", "https://nitter.net")
+            new_url = new_url.replace("https://x.com", "https://nitter.net")
+            new_url = new_url.replace("https://mobile.x.com", "https://nitter.net")
 
+        if new_url:
             await message.channel.send("E um link do Nitter pra você não dar pageview pro Elno:" + "\n" + new_url.split("?")[0])
 
     return 1
