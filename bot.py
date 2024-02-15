@@ -94,19 +94,19 @@ async def on_message(message):
 
         new_url = None
 
-        if twmatch or xmatch:
-            if twmatch:
-                url = twmatch.group(0)
-            if xmatch:
-                url = xmatch.group(0)
+        # if twmatch or xmatch:
+        #     if twmatch:
+        #         url = twmatch.group(0)
+        #     if xmatch:
+        #         url = xmatch.group(0)
 
-            new_url = url.replace("https://mobile.twitter.com/", "https://nitter.net/")
-            new_url = new_url.replace("https://twitter.com", "https://nitter.net")
-            new_url = new_url.replace("https://x.com", "https://nitter.net")
-            new_url = new_url.replace("https://mobile.x.com", "https://nitter.net")
+        #     new_url = url.replace("https://mobile.twitter.com/", "https://nitter.net/")
+        #     new_url = new_url.replace("https://twitter.com", "https://nitter.net")
+        #     new_url = new_url.replace("https://x.com", "https://nitter.net")
+        #     new_url = new_url.replace("https://mobile.x.com", "https://nitter.net")
 
-        if new_url:
-            await message.channel.send("E um link do Nitter pra você não dar pageview pro Elno:" + "\n" + new_url.split("?")[0])
+        # if new_url:
+        #     await message.channel.send("E um link do Nitter pra você não dar pageview pro Elno:" + "\n" + new_url.split("?")[0])
 
     return 1
 
